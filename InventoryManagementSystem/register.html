@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<img class="wave" src="img/wave.jpg">
+	<div class="container">
+		<div class="img">
+			<img src="img/bg.jpg">
+		</div>
+		<div class="login-content">
+			<form>
+				
+				<h2 class="title">Register</h2><br>
+                <div>
+					<p>
+					<h4 style="text-align: left;">Register as &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="type" value="1" checked>
+						Admin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="type" value="2">
+						User
+					</h4>
+					</p>
+				</div><br>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>E-mail</h5>
+           		   		<input type="text" class="input" id="email">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Enter Password</h5>
+           		    	<input type="password" class="input" id="password">
+            	   </div>
+            	</div>
+				<div class="input-div pass">
+					<div class="i"> 
+						 <i class="fas fa-lock"></i>
+					</div>
+					<div class="div">
+						 <h5>Confirm Password</h5>
+						 <input type="password" class="input">
+				 </div>
+			  </div>
+            	
+            	<input type="button" class="btn" value="Register" id="button">
+				<div class="link">
+                    <p>You already have an account?<a href="login.html">Sign-in</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
+	<script type="module">
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+		import { getAuth,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+	
+	const firebaseConfig = {
+		apiKey: "AIzaSyAtIqltwr3KIFTOOv3v43sXiyhL8ObHGug",
+		authDomain: "inventory-mgmt-e3eee.firebaseapp.com",
+		projectId: "inventory-mgmt-e3eee",
+		storageBucket: "inventory-mgmt-e3eee.appspot.com",
+		messagingSenderId: "156023983478",
+		appId: "1:156023983478:web:e772f05e7d1e043cafbe57"
+	};
+	const app = initializeApp(firebaseConfig);
+	const auth = getAuth();
+	const button = document.getElementById('button');
+	const email=document.getElementById("email");
+	const password=document.getElementById('password');
+	button.addEventListener('click', function () {
+		let evalue=email.value;
+		let pvalue=password.value;
+		console.log(evalue,pvalue)
+		createUserWithEmailAndPassword(auth, evalue, pvalue)
+  		.then((userCredential) => {
+    	// Signed up 
+    		const user = userCredential.user;
+			Swal.fire({
+                        icon: 'success',
+                        title: 'Congratulations',
+                    })
+    	// ...
+  		})
+  		.catch((error) => {
+    		const errorCode = error.code;
+    	const errorMessage = error.message;
+    	// ..
+  		});
+	})
+	</script>
+</body>
+</html>
